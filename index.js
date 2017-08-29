@@ -12,6 +12,7 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
 
   var history = {
     browsers : {},
+    failures : [],
     result : {},
     summary : {}
   };
@@ -25,6 +26,10 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
     history.result[browser.id].push(result);
 
     history.browsers[browser.id] = history.browsers[browser.id] || browser;
+
+    if (!result.skipped && !result.success) {
+      history.failures.push(result);
+    }
   };
 
   this.onRunComplete = function(browser, result) {
