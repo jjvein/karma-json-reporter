@@ -12,10 +12,25 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
 
   var history = {
     browsers : {},
-    failures : [],
+    failures : {},
     result : {},
     summary : {}
   };
+
+  var setFailure = function(failure) {
+    var lastObj = history.failures;
+
+    for(var i = 0; i < failure.suite.length; i++) {
+      if (lastObj[failure.suite[i]]) {
+        lastObj = lastObj[failure.suite[i]];
+      } else {
+        lastObj = lastObj[failure.suite[i]] = {};
+      }
+    }
+
+    lastObj['__it__'] = lastObj['__it__'] || [];
+    lastObj['__it__'].push({ description: failure.description, log: failure.log })
+  }
 
   var reporterConfig = config.jsonReporter || {};
   var stdout = typeof reporterConfig.stdout !== 'undefined' ? reporterConfig.stdout : true;
@@ -28,7 +43,7 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
     history.browsers[browser.id] = history.browsers[browser.id] || browser;
 
     if (!result.skipped && !result.success) {
-      history.failures.push(result);
+      setFailure(result);
     }
   };
 
