@@ -10,15 +10,14 @@ The easiest way is to keep `karma-json-reporter` as a devDependency in your `pac
 ```json
 {
   "devDependencies": {
-    "karma": "~0.10",
-    "karma-json-reporter": "~1.1"
+    "karma-api-reporter": "~0.1"
   }
 }
 ```
 
 You can simple do it by:
 ```bash
-npm install karma-json-reporter --save-dev
+npm install karma-api-reporter --save-dev
 ```
 
 ## Usage
@@ -31,8 +30,8 @@ module.exports = function(config) {
   // ...
 
     // json reporter directly output stringified json
-    reporters: ['json'],
-    jsonReporter: {
+    reporters: ['apijson'],
+    apiJsonReporter: {
       stdout: true, // or false
       outputFile: 'results.json' // defaults to none
       outputUrl: 'http://api.github.com/postData' // privilege to use this attribute compared to `outputFile`

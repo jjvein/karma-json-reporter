@@ -1,14 +1,14 @@
 {
-  "name": "@skroutz/karma-json-reporter",
-  "version": "1.3.0",
-  "description": "JSON reporter for Karma",
+  "name": "karma-api-reporter",
+  "version": "0.1.3",
+  "description": "Api reporter for Karma",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/skroutz/karma-json-reporter.git"
+    "url": "git@github.com:jjvein/karma-json-reporter.git"
   },
   "keywords": [
     "karma-plugin",
@@ -21,9 +21,9 @@
   "author": "Douglas Duteil",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/skroutz/karma-json-reporter/issues"
+    "url": "https://github.com/jjvein/karma-json-reporter"
   },
-  "homepage": "https://github.com/skroutz/karma-json-reporter",
+  "homepage": "https://github.com/jjvein/karma-json-reporter",
   "dependencies": {
     "request": "^2.83.0"
   }

@@ -6,7 +6,7 @@ var fs = require('fs');
 var request = require("request");
 
 //
-var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
+var ApiJSONReporter = function (baseReporterDecorator, config, helper, logger) {
 
   var log = logger.create('karma-json-reporter');
   baseReporterDecorator(this);
@@ -33,7 +33,7 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
     lastObj['__it__'].push({ description: failure.description, log: failure.log })
   }
 
-  var reporterConfig = config.jsonReporter || {};
+  var reporterConfig = config.apiJsonReporter || {};
   var stdout = typeof reporterConfig.stdout !== 'undefined' ? reporterConfig.stdout : true;
   var outputFile = (reporterConfig.outputFile) ? helper.normalizeWinPath(path.resolve(config.basePath, reporterConfig.outputFile )) : null;
   var outputUrl = reporterConfig.outputUrl || '';
@@ -71,7 +71,7 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
         if (err) {
           log.warn('Cannot write JSON\n\t' + err.message);
         } else {
-          log.debug('JSON written to "%s".', outputFile);
+          log.debug('JSON written to ' + outputFile);
         }
       });
     });
@@ -80,9 +80,9 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
   };
 };
 
-JSONReporter.$inject = ['baseReporterDecorator','config','helper','logger'];
+ApiJSONReporter.$inject = ['baseReporterDecorator','config','helper','logger'];
 
 // PUBLISH DI MODULE
 module.exports = {
-  'reporter:json': ['type', JSONReporter]
+  'reporter:apijson': ['type', ApiJSONReporter]
 };
