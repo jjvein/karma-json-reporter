@@ -3,6 +3,7 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var request = require("request");
 
 //
 var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
@@ -35,6 +36,7 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
   var reporterConfig = config.jsonReporter || {};
   var stdout = typeof reporterConfig.stdout !== 'undefined' ? reporterConfig.stdout : true;
   var outputFile = (reporterConfig.outputFile) ? helper.normalizeWinPath(path.resolve(config.basePath, reporterConfig.outputFile )) : null;
+  var outputUrl = reporterConfig.outputUrl || '';
 
   this.onSpecComplete = function(browser, result) {
     history.result[browser.id] = history.result[browser.id] || [];
@@ -50,7 +52,20 @@ var JSONReporter = function (baseReporterDecorator, config, helper, logger) {
   this.onRunComplete = function(browser, result) {
     history.summary = result;
     if(stdout) process.stdout.write(JSON.stringify(history));
-    if(outputFile) {
+    if (outputUrl) {
+        request({
+            url: outputUrl,
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(history)
+        }, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                log.debug(`Request url: %{outputUrl} success!`);
+            }
+        });
+    } else if(outputFile) {
       helper.mkdirIfNotExists(path.dirname(outputFile), function() {
       fs.writeFile(outputFile, JSON.stringify(history), function(err) {
         if (err) {

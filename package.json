@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/skroutz/karma-json-reporter/issues"
   },
-  "homepage": "https://github.com/skroutz/karma-json-reporter"
+  "homepage": "https://github.com/skroutz/karma-json-reporter",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
 }

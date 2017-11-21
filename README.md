@@ -33,8 +33,9 @@ module.exports = function(config) {
     // json reporter directly output stringified json
     reporters: ['json'],
     jsonReporter: {
-      stdout: true,
+      stdout: true, // or false
       outputFile: 'results.json' // defaults to none
+      outputUrl: 'http://api.github.com/postData' // privilege to use this attribute compared to `outputFile`
     }
 
   // ...
