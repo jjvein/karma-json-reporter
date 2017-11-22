@@ -12,6 +12,7 @@ var ApiJSONReporter = function (baseReporterDecorator, config, helper, logger) {
   baseReporterDecorator(this);
 
   var history = {
+    "@timestamp": (new Date()).toISOString(),
     browsers : {},
     failures : {},
     result : {},
@@ -62,7 +63,7 @@ var ApiJSONReporter = function (baseReporterDecorator, config, helper, logger) {
             body: JSON.stringify(history)
         }, function(error, response, body) {
             if (!error && response.statusCode == 200) {
-                log.debug(`Request url: %{outputUrl} success!`);
+                log.debug('Request url success!');
             }
         });
     } else if(outputFile) {
